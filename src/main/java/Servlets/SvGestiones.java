@@ -5,6 +5,7 @@
 package Servlets;
 
 import Clases.Gestiones;
+import Clases.Tutorial;
 import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -49,9 +50,9 @@ public class SvGestiones extends HttpServlet {
 
                 // Establecer parámetros del procedimiento almacenado
                 stmt.setString(1, request.getParameter("nombre"));
-                stmt.setInt(2, Integer.parseInt(request.getParameter("prioridad")));
-                stmt.setString(3, request.getParameter("estado"));
-                stmt.setInt(4, Integer.parseInt(request.getParameter("categoria")));
+                stmt.setInt(2,Integer.parseInt(request.getParameter("prioridad")) );
+                stmt.setString(3,request.getParameter("estado"));
+                stmt.setInt(4,  Integer.parseInt(request.getParameter("categoria")));
                 stmt.setString(5, request.getParameter("url"));
 
                 // Ejecutar el procedimiento almacenado

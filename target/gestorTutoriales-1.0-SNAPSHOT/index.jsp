@@ -4,6 +4,8 @@
     Author     : maria
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Clases.Tutorial"%>
 <%@page import="Clases.Gestiones"%>
 <%@page import="java.util.List"%>
 <%@page import="java.sql.ResultSet"%>
@@ -428,20 +430,25 @@
                             <th scope="col">Categoria</th>
                             <th scope="col">URL</th>
                             <th scope="col">Estado</th>
+                            <th scope="col">Prioridad</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% 
                             Gestiones gestionar = new Gestiones();
-                            List<String[]> result = gestionar.getTutoriales();
+                            ArrayList<Tutorial> result = gestionar.getTutoriales();
 
                             // Iterar sobre los resultados y mostrarlos en la tabla
-                            for (String[] row : result) {
+                            for (Tutorial tut: result) {
                         %>
                         <tr>
-                            <% for (String value : row) { %>
-                            <td><%= value %></td>
-                            <% } %>
+                            <td><%= tut.getId() %></td>
+                            <td><%= tut.getNombre() %></td>
+                            <td><%= tut.getCategoria() %></td>
+                            <td><a href="<%= tut.getUrl()%> " target="_blank">Enlace</a></td>
+                            <td><%= tut.getEstado() %></td>
+                            <td><%= tut.getPrioridad()%><td>
+                      
                         </tr>
                         <% } %>
                     </tbody>

@@ -49,8 +49,9 @@ public class Gestiones {
      * @return data
      * @throws ClassNotFoundException 
      */
-     public List<String[]> getTutoriales() throws ClassNotFoundException {
+     public ArrayList<Tutorial> getTutoriales() throws ClassNotFoundException {
         List<String[]> data = new ArrayList<>();//Array para almacenar
+        ArrayList<Tutorial> array= new ArrayList();
         //Parametros para la conecion
         String url = "jdbc:mysql://localhost:3306/tutoriales?serverTimeZone=utc";
         String user = "root";
@@ -68,16 +69,20 @@ public class Gestiones {
             // Crear una declaración para la consulta de tutoriales
             Statement statementTutorial = connection.createStatement();
             ResultSet resultSetTutorial = statementTutorial.executeQuery(sqlTutorial);
-
+            
+            
+            
             // Iterar sobre los resultados de tutoriales y almacenarlos en el array
             while (resultSetTutorial.next()) {
-                String[] row = new String[5]; // Cinco columnas: id, nombre, idCategoria, URL, estado
-                row[0] = String.valueOf(resultSetTutorial.getInt("id"));
-                row[1] = resultSetTutorial.getString("nombre");
-                row[2] = String.valueOf(resultSetTutorial.getString("categoria"));
-                row[3] = resultSetTutorial.getString("URL");
-                row[4] = resultSetTutorial.getString("estado");
-                data.add(row);
+                Tutorial tut= new Tutorial ();
+                tut.setId(resultSetTutorial.getInt("id"));
+                tut.setNombre(resultSetTutorial.getString("nombre"));                
+                tut.setCategoria(resultSetTutorial.getString("categoria"));
+                tut.setUrl(resultSetTutorial.getString("URL"));
+                tut.setEstado(resultSetTutorial.getString("estado"));
+                tut.setPrioridad(Integer.parseInt(resultSetTutorial.getString("prioridad")));
+                array.add(tut);
+                //data.add(row);
             }
   
             // Cerrar la conexión
@@ -90,6 +95,6 @@ public class Gestiones {
             // Manejo de excepciones
         }
 
-        return data;
+        return array;
     }
 }

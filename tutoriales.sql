@@ -12,7 +12,7 @@ CREATE TABLE tutorial (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   nombre VARCHAR(100) NOT NULL,
   idCategoria INT UNSIGNED,
-  URL VARCHAR(100) NOT NULL,
+  URL text,
   estado VARCHAR (50) NOT NULL,
   prioridad INT NOT NULL,
   FOREIGN KEY (idCategoria) REFERENCES categoria(id) ON DELETE RESTRICT
@@ -30,7 +30,7 @@ CREATE PROCEDURE InsertarTutorial(
     IN prioridad INT,
     IN estado VARCHAR(100),
     IN idcategoria INT UNSIGNED,
-    IN url VARCHAR(100)
+    IN url text
 )
 BEGIN
     -- Insertar el tutorial con los datos proporcionados
@@ -38,12 +38,14 @@ BEGIN
 END //
 DELIMITER ;
 
-/*CALL `tutoriales`.`InsertarTutorial`('PHP', 1, 'A', 1, 'url');
+CALL `tutoriales`.`InsertarTutorial`('PHP', 1, 'A', 1, 'url');
 
- INSERT INTO tutorial (nombre, idCategoria, URL, prioridad,estado) VALUES ('JAVA', 3, 'url-kjava', 1,'A');*/
+ INSERT INTO tutorial (nombre, idCategoria, URL, prioridad,estado) VALUES ('JAVA', 3, 'url-kjava', 1,'A');
 
 select * from categoria;
-select * from tutorial;
+select * from tutorial join categoria on categoria.id=tutorial.idcategoria;
+
+SELECT * FROM tutorial
 
 
 

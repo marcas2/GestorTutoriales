@@ -1,4 +1,5 @@
 Clases\Gestiones.class
+Clases\Tutorial.class
 com\mycompany\gestortutoriales\JakartaRestConfiguration.class
 com\mycompany\gestortutoriales\resources\JakartaEE8Resource.class
 Servlets\SvGestiones.class
