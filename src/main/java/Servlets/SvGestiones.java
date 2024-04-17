@@ -6,14 +6,9 @@ package Servlets;
 
 import Clases.Gestiones;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author maria
+ *  SvGestiones
+ * @author maria - sofia
  */
 @WebServlet(name = "SvGestiones", urlPatterns = {"/SvGestiones"})
 public class SvGestiones extends HttpServlet {
@@ -30,20 +25,20 @@ public class SvGestiones extends HttpServlet {
     Gestiones gestionar = new Gestiones();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       
+            throws ServletException, IOException {     
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
-
-
+    /**
+     * Añadir tutorial- Mandar informacion a base de datos
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
          // Establecer la conexión a la base de datos
         Connection conn = gestionar.establecerConexion();
 
@@ -59,7 +54,6 @@ public class SvGestiones extends HttpServlet {
                 stmt.setInt(4, Integer.parseInt(request.getParameter("categoria")));
                 stmt.setString(5, request.getParameter("url"));
 
-
                 // Ejecutar el procedimiento almacenado
                 stmt.execute();
 
@@ -72,22 +66,18 @@ public class SvGestiones extends HttpServlet {
                 // Manejar cualquier error de SQL
                 e.printStackTrace(); // Esto imprimirá la traza de la excepción en la consola del servidor
                 // Puedes manejar el error de otra manera, como mostrar un mensaje de error en la página
-                response.getWriter().println("Error al agregar la marca. Por favor, inténtelo de nuevo."); // Esto mostrará un mensaje de error en la página
+                response.getWriter().println("Error al agregar el tutorial. Por favor, inténtelo de nuevo."); 
             }
         } else {
             // Manejar el caso en que no se pueda obtener una conexión a la base de datos
-            response.getWriter().println("No se pudo establecer una conexión a la base de datos."); // Esto mostrará un mensaje de error en la página
+            response.getWriter().println("No se pudo establecer una conexión a la base de datos."); 
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }
 
 }

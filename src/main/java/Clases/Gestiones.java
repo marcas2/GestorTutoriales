@@ -4,7 +4,6 @@
  */
 package Clases;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,17 +11,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author maria
+ * Gestiones
+ * Clase para la conexion con la base de datos
+ * @author maria- Sofia
  */
 public class Gestiones {
+    
+    /**
+     * Metodo para establecer la conexion con la base de datos
+     * @return conexion
+     */
     public Connection establecerConexion(){
+        //Parametros para la conexion
         String url = "jdbc:mysql://localhost:3306/tutoriales?serverTimeZone=utc";
         String user = "root";
         String password = "admin";
@@ -32,15 +34,24 @@ public class Gestiones {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection(url,user,password);
             if (conn!=null) {
-                System.out.println("Conexion exitosa");
+                System.out.println("Conexion exitosa");//Bandera para indicar procedimiento exitoso
             }
         } catch (Exception e) {
+            //Manejo de excepciones en caso de error
             System.out.println("Error de conexion" + e.getMessage());
         }
         return conn;
     }
-     public List<String[]> getCategoriasAndTutoriales() throws ClassNotFoundException {
-        List<String[]> data = new ArrayList<>();
+    
+    /**
+     * getTutoriales
+     * Metodo para poner la informacion de la base de datos en un array
+     * @return data
+     * @throws ClassNotFoundException 
+     */
+     public List<String[]> getTutoriales() throws ClassNotFoundException {
+        List<String[]> data = new ArrayList<>();//Array para almacenar
+        //Parametros para la conecion
         String url = "jdbc:mysql://localhost:3306/tutoriales?serverTimeZone=utc";
         String user = "root";
         String password = "admin";
@@ -53,7 +64,6 @@ public class Gestiones {
             // Consulta SQL para obtener datos de la tabla tutorial
             String sqlTutorial = "SELECT * FROM tutorial join categoria on categoria.id=tutorial.idcategoria";
 
-   
 
             // Crear una declaración para la consulta de tutoriales
             Statement statementTutorial = connection.createStatement();
@@ -74,9 +84,10 @@ public class Gestiones {
             resultSetTutorial.close();
             statementTutorial.close();
             connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
-            // Manejo de excepciones: registro, lanzamiento o propagación
+            // Manejo de excepciones
         }
 
         return data;
