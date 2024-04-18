@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -28,10 +30,37 @@ public class SvGestiones extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {     
     }
-
+    /**
+     * Metodo ver 
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            Tutorial conn = gestionar.obtenerTutorial(Integer.parseInt(request.getParameter("id")));
+            
+             if (conn != null) {
+            // Construir una cadena HTML con información del contacto
+            String tutorialHtml = "<h2>Nombre: " + conn.getNombre() + "</h2>"+
+                    "<h3> Id:</h3><p> " +conn.getId()+ "</p>" +
+                    "<h3> Categoria:</h3><p> " +conn.getCategoria()+ "</p>" +
+                    "<h3> Prioridad:</h3><p> " +conn.getPrioridad()+ "</p>" +
+                    "<h3> Estado:</h3><p> " +conn.getEstado()+ "</p>" +
+                    "<h3> Url:</h3><p> " +conn.getUrl()+ "</p>" 
+                 ;
+            // Establecer el tipo de contenido de la respuesta
+            response.setContentType("text/html; charset=UTF-8");
+            // Escribir la cadena HTML en el cuerpo de la respuesta
+            response.getWriter().write(tutorialHtml);
+
+            } else {
+                /// Manejar el caso en el que el objeto es nulo
+                response.setContentType("text/plain");// Establecer el tipo de contenido como texto plano
+                response.getWriter().write("Contacto no encontrado"); // Escribir un mensaje indicando que el contacto no está disponible
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SvGestiones.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * Añadir tutorial- Mandar informacion a base de datos

@@ -42,10 +42,10 @@ CALL `tutoriales`.`InsertarTutorial`('PHP', 1, 'A', 1, 'url');
 
  INSERT INTO tutorial (nombre, idCategoria, URL, prioridad,estado) VALUES ('JAVA', 3, 'url-kjava', 1,'A');
 
-select * from categoria;
-select * from tutorial join categoria on categoria.id=tutorial.idcategoria;
+/**select * from categoria;
+select * from tutorial join categoria on categoria.id=tutorial.idcategoria;**/
 
-SELECT * FROM tutorial
+SELECT * FROM tutorial join categoria on categoria.id=tutorial.idcategoria where tutorial.id=1 ;
 
 
 

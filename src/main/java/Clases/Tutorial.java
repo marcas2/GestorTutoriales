@@ -17,6 +17,18 @@ public class Tutorial {
     private String categoria;
     private String url;
 
+    public Tutorial() {
+    }
+
+    public Tutorial(int id, String nombre, int prioridad, String estado, String categoria, String url) {
+        this.id = id;
+        this.nombre = nombre;
+        this.prioridad = prioridad;
+        this.estado = estado;
+        this.categoria = categoria;
+        this.url = url;
+    }
+    
     public int getId() {
         return id;
     }

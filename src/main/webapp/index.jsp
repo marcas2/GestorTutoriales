@@ -37,6 +37,14 @@
   <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+      <script src="https://example.com/fontawesome/v6.5.2/js/fontawesome.js" data-auto-replace-svg="nest"></script>
+ <script src="https://kit.fontawesome.com/ae360af17e.js" crossorigin="anonymous"></script>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
@@ -431,13 +439,13 @@
                             <th scope="col">URL</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Prioridad</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% 
                             Gestiones gestionar = new Gestiones();
                             ArrayList<Tutorial> result = gestionar.getTutoriales();
-
                             // Iterar sobre los resultados y mostrarlos en la tabla
                             for (Tutorial tut: result) {
                         %>
@@ -448,12 +456,16 @@
                             <td><a href="<%= tut.getUrl()%> " target="_blank">Enlace</a></td>
                             <td><%= tut.getEstado() %></td>
                             <td><%= tut.getPrioridad()%><td>
-                      
+                            <td><a href ="#" type="button" class="btn btn-primary verButton" data-id="<%=tut.getId()%>" id="verButton" data-bs-toggle="modal" data-bs-target="#exampleModal" ><i class="fa-regular fa-eye"></i></a>
+                                <a href ="#" type="button" class="btn btn-warning" data-id="<%=tut.getId()%>" id="editarButton" data-bs-toggle="editar" data-bs-target="#editarModal" ><i class="fa-solid fa-user-pen"></i></a>
+
+                                <a class="btn btn-danger" href="SvEliminar?id=<%=tut.getId()%>"><i class="fas fa-trash"></i></a>
+                            <td>
                         </tr>
                         <% } %>
                     </tbody>
                 </table>
-            </div>
+            </div>  
 
 
               </div>
@@ -465,8 +477,105 @@
       </div>
     </section>
 
-  </main><!-- End #main -->
 
+<!-- Modal Ver -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+                <div id="ver-details">
+                        <!-- Contenido dinámico: Aquí se mostrarán los detalles a ver -->
+                </div>
+            </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal fade" id="editarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       <h1 class="modal-title fs-5" id="exampleModalLabel">Editar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+                <div id="editar-details">
+                        <!-- Contenido dinámico: Aquí se mostrarán los detalles a ver -->
+                </div>
+                    
+            </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+  
+  </main><!-- End #main -->
+  <!-- Scripts necesarios (jQuery) -->
+ <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+<!-- Librerias sweet alert/ Toastr / Bootstrap-->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> 
+
+  <script>
+      
+ $(document).ready(function () {
+    // Al hacer clic en un elemento con el atributo data-bs-toggle="ver"
+    $('[data-bs-toggle="modal"]').on('click', function () {
+        // Obtener el id del tutorial desde el atributo data-id
+        var id = $(this).data('id');
+        // Realizar una solicitud AJAX para obtener detalles del tutorial por su id
+        $.ajax({
+            url: 'SvGestiones?id=' + id, // URL del servlet o recurso que maneja la solicitud
+            method: 'GET',
+            success: function (data) {
+                // Éxito: Colocar los detalles del tutorial en el contenedor #tutorial-details
+                $('#ver-details').html(data);
+                // Mostrar el modal (exampleModal) una vez que se han cargado los detalles del contacto
+                $('#exampleModal').modal('show');
+            },
+            error: function () {
+                console.log('Error al cargar los detalles del contacto.');
+            }
+        });
+    });
+});
+
+ $(document).ready(function () {
+    // Al hacer clic en un elemento con el atributo data-bs-toggle="ver"
+    $('[data-bs-toggle="editar"]').on('click', function () {
+        // Obtener el id del tutorial desde el atributo data-id
+        var id = $(this).data('id');
+        // Realizar una solicitud AJAX para obtener detalles del tutorial por su id
+        $.ajax({
+            url: 'SvEditar?id=' + id, // URL del servlet o recurso que maneja la solicitud
+            method: 'GET',
+            success: function (data) {
+                // Éxito: Colocar los detalles del tutorial en el contenedor #tutorial-details
+                $('#editar-details').html(data);
+                // Mostrar el modal (exampleModal) una vez que se han cargado los detalles del contacto
+                $('#editarModal').modal('show');
+            },
+            error: function () {
+                console.log('Error al cargar los detalles del contacto.');
+            }
+        });
+    });
+});
+
+      
+  </script>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
