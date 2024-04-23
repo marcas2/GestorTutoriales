@@ -5,6 +5,7 @@
 package Servlets;
 
 import Clases.Categoria;
+import Clases.GestionCategorias;
 import Clases.Gestiones;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SvEditarCategoria", urlPatterns = {"/SvEditarCategoria"})
 public class SvEditarCategoria extends HttpServlet {
-    Gestiones gestionar = new Gestiones();
+     GestionCategorias gestionar = new GestionCategorias();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

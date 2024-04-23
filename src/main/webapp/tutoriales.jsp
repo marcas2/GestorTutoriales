@@ -1,4 +1,5 @@
 
+<%@page import="Clases.GestionCategorias"%>
 <!-- Imports -->
 <%@page import="Clases.Categoria"%>
 <%@page import="java.util.ArrayList"%>
@@ -63,7 +64,7 @@
       <div class="row">
 
         <!-- Left side columns -->
-        <div class="col-lg-8">
+        <div>
           <div class="row">
 
             <!-- formulario -->
@@ -137,7 +138,8 @@
                         <%
                         //Mostrar dinamicamente las categorias
                         Gestiones gestionar = new Gestiones();//Se crea objeto para usar los metodos
-                        ArrayList<Categoria> result2 = gestionar.getCategorias();//Array para almacenar las categorias
+                        GestionCategorias ges= new GestionCategorias();
+                        ArrayList<Categoria> result2 = ges.getCategorias();//Array para almacenar las categorias
                         // Iterar sobre los resultados y mostrarlos en la tabla
                         for (Categoria cat: result2) { //Se recorre el array mostrando cada opcion
 

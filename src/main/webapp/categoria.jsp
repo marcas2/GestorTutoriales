@@ -1,4 +1,5 @@
 
+<%@page import="Clases.GestionCategorias"%>
 <%@page import="Clases.Categoria"%>
 <%@include file= "templates/header.jsp" %>
 <%@include file= "templates/lateral.jsp" %>
@@ -59,7 +60,7 @@
         <div class="row">
 
             <!-- Left side columns -->
-            <div class="col-lg-8">
+            <div >
                 <div class="row">
 
                     <!-- FORMULARIO -->
@@ -112,7 +113,7 @@
                                     </thead>
                                     <tbody>
                                         <%  //Contenido dinamico
-                                            Gestiones gestionar = new Gestiones();
+                                            GestionCategorias gestionar = new GestionCategorias();
                                             ArrayList<Categoria> result = gestionar.getCategorias();
                                             // Iterar sobre los resultados y mostrarlos en la tabla
                                             for (Categoria cat : result) {

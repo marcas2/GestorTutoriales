@@ -5,6 +5,7 @@
 package Servlets;
 
 import Clases.Categoria;
+import Clases.GestionCategorias;
 import Clases.Gestiones;
 import Clases.Tutorial;
 import java.io.IOException;
@@ -26,7 +27,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "SvVerAgregarCategoria", urlPatterns = {"/SvVerAgregarCategoria"})
 public class SvVerAgregarCategoria extends HttpServlet {
-      Gestiones gestionar = new Gestiones();
+    GestionCategorias gestionar = new GestionCategorias();
+    Gestiones ges= new Gestiones();
 
     /**
      */
@@ -71,7 +73,7 @@ public class SvVerAgregarCategoria extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Establecer la conexión a la base de datos
-        Connection conn = gestionar.establecerConexion();
+        Connection conn = ges.establecerConexion();
 
         if (conn != null) {
             try {

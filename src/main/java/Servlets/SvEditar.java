@@ -5,6 +5,7 @@
 package Servlets;
 
 import Clases.Categoria;
+import Clases.GestionCategorias;
 import Clases.Gestiones;
 import Clases.Tutorial;
 import java.io.IOException;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 public class SvEditar extends HttpServlet {
 
      Gestiones gestionar = new Gestiones();
+     GestionCategorias ges = new GestionCategorias();
      
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -70,7 +72,7 @@ public class SvEditar extends HttpServlet {
                         + "<select class=\"form-select\" id=\"validationCustom04\" name=\"categoria\" required>\n"
                         + "    <option selected disabled value=\"\">Elige...</option>\n";
 
-                ArrayList<Categoria> result2 = gestionar.getCategorias();
+                ArrayList<Categoria> result2 = ges.getCategorias();
                 // Iterar sobre los resultados y mostrarlos en la tabla
                 for (Categoria cat2 : result2) {
                     tutorialHTML += "<option value=\"" + cat2.getId() + "\">" + cat2.getCategoria() + "</option>\n";

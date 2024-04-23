@@ -1,11 +1,12 @@
-Servlets\SvEliminarCategoria.class
+Clases\GestionCategorias.class
 Servlets\SvEditarCategoria.class
 Clases\Tutorial.class
 Clases\Categoria.class
 com\mycompany\gestortutoriales\resources\JakartaEE8Resource.class
 Servlets\SvVerAgregarCategoria.class
-Clases\Gestiones.class
-Servlets\SvEliminar.class
 com\mycompany\gestortutoriales\JakartaRestConfiguration.class
 Servlets\SvGestiones.class
 Servlets\SvEditar.class
+Servlets\SvEliminarCategoria.class
+Clases\Gestiones.class
+Servlets\SvEliminar.class
