@@ -57,7 +57,7 @@ public class Gestiones {
             Connection connection = establecerConexion();
 
             // Consulta SQL para obtener datos de la tabla tutorial
-            String sqlTutorial = "SELECT * FROM tutorial join categoria on categoria.id=tutorial.idcategoria";
+            String sqlTutorial = "SELECT * FROM tutorial left join categoria on categoria.id=tutorial.idcategoria";
 
 
             // Crear una declaración para la consulta de tutoriales
@@ -70,11 +70,14 @@ public class Gestiones {
             while (resultSetTutorial.next()) {
                 Tutorial tut= new Tutorial ();
                 tut.setId(resultSetTutorial.getInt("id"));
-                tut.setNombre(resultSetTutorial.getString("nombre"));                
+                tut.setNombre(resultSetTutorial.getString("nombre"));
+                if(resultSetTutorial.getString("categoria")!=null){
                 tut.setCategoria(resultSetTutorial.getString("categoria"));
+                } else{tut.setCategoria("No hay categoria");}
                 tut.setUrl(resultSetTutorial.getString("URL"));
                 tut.setEstado(resultSetTutorial.getString("estado"));
                 tut.setPrioridad(Integer.parseInt(resultSetTutorial.getString("prioridad")));
+                System.out.println("---"+tut.getId()+tut.getCategoria());
                 array.add(tut);
                 //data.add(row);
             }
@@ -95,7 +98,7 @@ public class Gestiones {
          Tutorial tut=new Tutorial();
           Connection connection = establecerConexion();
           // Consulta SQL para obtener datos de la tabla tutorial
-          String sqlTutorial = "SELECT * FROM tutorial join categoria on categoria.id=tutorial.idcategoria where tutorial.id="+id ;
+          String sqlTutorial = "SELECT * FROM tutorial left join categoria on categoria.id=tutorial.idcategoria where tutorial.id="+id ;
           // Crear una declaración para la consulta de tutoriales
           Statement statementTutorial = connection.createStatement();
           ResultSet resultSetTutorial = statementTutorial.executeQuery(sqlTutorial);
@@ -106,7 +109,9 @@ public class Gestiones {
             while (resultSetTutorial.next()) {              
                 tut.setId(resultSetTutorial.getInt("id"));
                 tut.setNombre(resultSetTutorial.getString("nombre"));                
+                if(resultSetTutorial.getString("categoria")!=null){
                 tut.setCategoria(resultSetTutorial.getString("categoria"));
+                } else{tut.setCategoria("No hay categoria");}
                 tut.setUrl(resultSetTutorial.getString("URL"));
                 tut.setEstado(resultSetTutorial.getString("estado"));
                 tut.setPrioridad(Integer.parseInt(resultSetTutorial.getString("prioridad")));
@@ -194,5 +199,146 @@ public void eliminar(int id) throws SQLException {
         }
     }
 }
+    /**
+     * getCategorias
+     * Metodo para poner la informacion de la base de datos en un array
+     * @return data
+     * @throws ClassNotFoundException 
+     */
+     public ArrayList<Categoria> getCategorias() throws ClassNotFoundException {
+        ArrayList<Categoria> array= new ArrayList();
+        try {
+            // Establecer conexión con la base de datos
+            Connection connection = establecerConexion();
 
+            // Consulta SQL para obtener datos de la tabla tutorial
+            String sqlTutorial = "SELECT * FROM categoria";
+
+
+            // Crear una declaración para la consulta de tutoriales
+            Statement statementTutorial = connection.createStatement();
+            ResultSet resultSetTutorial = statementTutorial.executeQuery(sqlTutorial);
+            
+            
+            
+            // Iterar sobre los resultados de tutoriales y almacenarlos en el array
+            while (resultSetTutorial.next()) {
+                Categoria cat= new Categoria ();
+                cat.setId(resultSetTutorial.getInt("id"));
+                if(resultSetTutorial.getString("categoria")!=null){
+                cat.setCategoria(resultSetTutorial.getString("categoria"));}
+                else{
+                    cat.setCategoria("No hay categoria");
+                }
+                System.out.println("---"+cat.getId()+cat.getCategoria());
+                array.add(cat);
+            }
+  
+            // Cerrar la conexión
+            resultSetTutorial.close();
+            statementTutorial.close();
+            connection.close();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejo de excepciones
+        }
+
+        return array;
+    }
+      public Categoria obtenerCategoria (int id) throws SQLException{
+         Categoria cat=new Categoria();
+          Connection connection = establecerConexion();
+          // Consulta SQL para obtener datos de la tabla tutorial
+          String sqlTutorial = "SELECT * FROM categoria where categoria.id="+id ;
+          // Crear una declaración para la consulta de tutoriales
+          Statement statementTutorial = connection.createStatement();
+          ResultSet resultSetTutorial = statementTutorial.executeQuery(sqlTutorial);
+            
+            
+            
+           // Iterar sobre los resultados de tutoriales y almacenarlos en el array
+            while (resultSetTutorial.next()) {              
+                cat.setId(resultSetTutorial.getInt("id"));              
+                cat.setCategoria(resultSetTutorial.getString("categoria"));
+            }
+
+            // Cerrar la conexión
+            resultSetTutorial.close();
+            statementTutorial.close();
+            connection.close();
+            
+          return cat; 
+     }
+    public void editarCategoria(int id, String categoria) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    
+    try {
+        connection = establecerConexion();
+        
+        // Consulta SQL parametrizada para actualizar la fila
+        String sqlTutorial = "UPDATE categoria SET categoria = ? WHERE id = ?";
+        
+        // Crear una declaración preparada para la consulta de actualización
+        preparedStatement = connection.prepareStatement(sqlTutorial);
+        
+        // Establecer los parámetros de la consulta
+        preparedStatement.setString(1, categoria);
+        preparedStatement.setInt(2, id);
+        
+        // Ejecutar la consulta de actualización
+        int filasActualizadas = preparedStatement.executeUpdate();
+        
+        if (filasActualizadas > 0) {
+            System.out.println("La fila fue actualizada exitosamente.");
+        } else {
+            System.out.println("No se encontró la fila a actualizar.");
+        }
+    } finally {
+        // Cerrar los recursos en un bloque finally
+        if (preparedStatement != null) {
+            preparedStatement.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
+    }
+}
+    
+    public void eliminarCategoria(int id) throws SQLException {
+    Connection connection = null;
+    PreparedStatement preparedStatement = null;
+    
+    try {
+        // Establecer la conexión a la base de datos
+        connection = establecerConexion();
+        
+        // Consulta SQL parametrizada para eliminar la fila
+        String sqlTutorial = "DELETE FROM categoria WHERE id = ?";
+        
+        // Crear una declaración preparada para la consulta de eliminación
+        preparedStatement = connection.prepareStatement(sqlTutorial);
+        
+        // Establecer el parámetro de la consulta
+        preparedStatement.setInt(1, id);
+        
+        // Ejecutar la consulta de eliminación
+        int filasEliminadas = preparedStatement.executeUpdate();
+        
+        if (filasEliminadas > 0) {
+            System.out.println("La fila fue eliminada exitosamente.");
+        } else {
+            System.out.println("No se encontró la fila a eliminar.");
+        }
+    } finally {
+        // Cerrar los recursos en un bloque finally
+        if (preparedStatement != null) {
+            preparedStatement.close();
+        }
+        if (connection != null) {
+            connection.close();
+        }
+    }
+}
 }

@@ -45,9 +45,15 @@ CALL `tutoriales`.`InsertarTutorial`('PHP', 1, 'A', 1, 'url');
 /**select * from categoria;
 select * from tutorial join categoria on categoria.id=tutorial.idcategoria;**/
 
-SELECT * FROM tutorial join categoria on categoria.id=tutorial.idcategoria where tutorial.id=1 ;
+SELECT * FROM tutorial join categoria on categoria.id=tutorial.idcategoria  ;
 
 
+DELETE FROM tutorial
+WHERE id = 1;
+
+UPDATE tutorial
+SET nombre = '', idCategoria='', URL='', prioridad='',estado=''
+WHERE id = 2;
 
 
 

@@ -34,14 +34,7 @@ public class SvEliminar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id= Integer.parseInt(request.getParameter("id"));
-     try {
-         gestionar.eliminar(id);
-          response.sendRedirect("index.jsp"); // Redirigir a una página de éxito
-     } catch (SQLException ex) {
-         Logger.getLogger(SvEliminar.class.getName()).log(Level.SEVERE, null, ex);
-     }
-        
+ 
     }
 
     /**
@@ -50,7 +43,14 @@ public class SvEliminar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+                int id= Integer.parseInt(request.getParameter("id"));
+        try {
+            gestionar.eliminar(id);
+             response.sendRedirect("tutoriales.jsp?alert=eliminado"); // Redirigir a una página de éxito
+        } catch (SQLException ex) {
+            Logger.getLogger(SvEliminar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
     }
 
     /**

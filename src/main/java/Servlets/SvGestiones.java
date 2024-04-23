@@ -37,16 +37,16 @@ public class SvGestiones extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            Tutorial conn = gestionar.obtenerTutorial(Integer.parseInt(request.getParameter("id")));
+            Tutorial conn = gestionar.obtenerTutorial(Integer.parseInt(request.getParameter("id")));//Se obtiene la informacion del tutorial
             
              if (conn != null) {
-            // Construir una cadena HTML con información del contacto
-            String tutorialHtml = "<h2>Nombre: " + conn.getNombre() + "</h2>"+
+            // Construir una cadena HTML con información del tutorial
+            String tutorialHtml = "<h2>Nombre: " + conn.getNombre() + "</h2>"+          
                     "<h3> Id:</h3><p> " +conn.getId()+ "</p>" +
                     "<h3> Categoria:</h3><p> " +conn.getCategoria()+ "</p>" +
                     "<h3> Prioridad:</h3><p> " +conn.getPrioridad()+ "</p>" +
                     "<h3> Estado:</h3><p> " +conn.getEstado()+ "</p>" +
-                    "<h3> Url:</h3><p> " +conn.getUrl()+ "</p>" 
+                    "<h3> Url:</h3><p> <a href=\""+conn.getUrl()+" \" target=\"_blank\">Enlace</a></p>" 
                  ;
             // Establecer el tipo de contenido de la respuesta
             response.setContentType("text/html; charset=UTF-8");
@@ -56,7 +56,7 @@ public class SvGestiones extends HttpServlet {
             } else {
                 /// Manejar el caso en el que el objeto es nulo
                 response.setContentType("text/plain");// Establecer el tipo de contenido como texto plano
-                response.getWriter().write("Contacto no encontrado"); // Escribir un mensaje indicando que el contacto no está disponible
+                response.getWriter().write("Tutorial no encontrado"); // Escribir un mensaje indicando que el Tutorial no está disponible
             }
         } catch (SQLException ex) {
             Logger.getLogger(SvGestiones.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,7 +91,7 @@ public class SvGestiones extends HttpServlet {
                 conn.close();
 
                 // Redirigir a alguna página de éxito o mostrar un mensaje de éxito
-                response.sendRedirect("index.jsp"); // Redirigir a una página de éxito
+                response.sendRedirect("tutoriales.jsp?alert=anadido"); // Redirigir a una página de éxito
             } catch (SQLException e) {
                 // Manejar cualquier error de SQL
                 e.printStackTrace(); // Esto imprimirá la traza de la excepción en la consola del servidor
