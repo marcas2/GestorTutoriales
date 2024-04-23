@@ -43,7 +43,7 @@ public class SvEliminarCategoria extends HttpServlet {
            int id= Integer.parseInt(request.getParameter("id"));
      try {
          gestionar.eliminarCategoria(id);
-          response.sendRedirect("categoria.jsp?alert=eliminado"); // Redirigir a una página de éxito
+          response.sendRedirect("index.jsp?alert=eliminado"); // Redirigir a una página de éxito
      } catch (SQLException ex) {
          Logger.getLogger(SvEliminar.class.getName()).log(Level.SEVERE, null, ex);
      }

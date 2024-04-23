@@ -297,17 +297,7 @@
                       });
                   }
 
-                  // Definición de la función 'añadido()'
-                  function anadido() {
-                      // Utiliza la librería Swal para mostrar una notificación de éxito
-                      Swal.fire({
-                          icon: 'success', // Icono de éxito
-                          title: 'Añadido exitosamente!', // Título de la notificación
-                          text: '¡Puedes verlo en la tabla!', // Texto de la notificación
-                          showConfirmButton: false, // No muestra el botón de confirmación
-                          timer: 1500 // Tiempo de duración de la notificación (en milisegundos)
-                      })
-                  }
+                  
                   function editado() {
                       Swal.fire({
                           icon: 'warning', // Icono de éxito

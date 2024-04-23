@@ -88,7 +88,7 @@ public class SvVerAgregarCategoria extends HttpServlet {
                 conn.close();
 
                 // Redirigir a alguna página de éxito o mostrar un mensaje de éxito
-                response.sendRedirect("categoria.jsp?alert=anadido"); // Redirigir a una página de éxito
+                response.sendRedirect("index.jsp?alert=anadida"); // Redirigir a una página de éxito
             } catch (SQLException e) {
                 // Manejar cualquier error de SQL
                 e.printStackTrace(); // Esto imprimirá la traza de la excepción en la consola del servidor
