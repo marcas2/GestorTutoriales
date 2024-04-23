@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author maria
+ * SvEliminar
+ * @author María- Sofía
  */
 @WebServlet(name = "SvEliminar", urlPatterns = {"/SvEliminar"})
 public class SvEliminar extends HttpServlet {
@@ -38,14 +38,15 @@ public class SvEliminar extends HttpServlet {
     }
 
     /**
-     * 
+     * Eliminar
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                int id= Integer.parseInt(request.getParameter("id"));
+        //Se obtiene el id a eliminar
+        int id= Integer.parseInt(request.getParameter("id"));
         try {
-            gestionar.eliminar(id);
+            gestionar.eliminar(id);//Se elimina
              response.sendRedirect("tutoriales.jsp?alert=eliminado"); // Redirigir a una página de éxito
         } catch (SQLException ex) {
             Logger.getLogger(SvEliminar.class.getName()).log(Level.SEVERE, null, ex);

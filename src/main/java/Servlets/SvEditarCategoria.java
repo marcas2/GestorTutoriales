@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author maria
+ *  SvEditarCategoria
+ * @author María- Sofía
  */
 @WebServlet(name = "SvEditarCategoria", urlPatterns = {"/SvEditarCategoria"})
 public class SvEditarCategoria extends HttpServlet {
@@ -32,6 +32,7 @@ public class SvEditarCategoria extends HttpServlet {
     }
 
     /**
+     * Ver formulario para editar
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +41,7 @@ public class SvEditarCategoria extends HttpServlet {
             Categoria conn = gestionar.obtenerCategoria(Integer.parseInt(request.getParameter("id")));//Se obtiene la informacion de la Categoria
             
              if (conn != null) {
-            // Construir una cadena HTML con información de la categoria
+            // Construir una cadena HTML con el formulario cargando los datos de la categoria
             String tutorialHtml = "<div >\n" +
 "                      <input name=\"id\" value=\"" + conn.getId() + "\" hidden required>\n"+
 "                      <label for=\"validationCustom01\" class=\"form-label\">Categoria</label>\n" +
@@ -65,16 +66,17 @@ public class SvEditarCategoria extends HttpServlet {
     }
 
     /**
+     * Editar
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+         //Se obtienen parametros
          int id=Integer.parseInt(request.getParameter("id")) ;
          String categoria= request.getParameter("categoria");
           
          try {
-             gestionar.editarCategoria(id, categoria);
+             gestionar.editarCategoria(id, categoria); //Se edita
               response.sendRedirect("categoria.jsp?alert=editado"); // Redirigir a una página de éxito
          } catch (SQLException ex) {
              Logger.getLogger(SvEditar.class.getName()).log(Level.SEVERE, null, ex);

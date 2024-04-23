@@ -12,11 +12,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
- *
- * @author maria
+ * GestionCategorias
+ * @author María- Sofia
  */
 public class GestionCategorias {
-        /**
+     /**
      * getCategorias
      * Metodo para poner la informacion de la base de datos en un array
      * @return data
@@ -64,6 +64,13 @@ public class GestionCategorias {
 
         return array;
     }
+     /**
+      * ObtenerCategoria
+      * Metodo para obtener una categoria
+      * @param id
+      * @return
+      * @throws SQLException 
+      */
       public Categoria obtenerCategoria (int id) throws SQLException{
          Categoria cat=new Categoria();
          Gestiones ges= new Gestiones();
@@ -73,7 +80,6 @@ public class GestionCategorias {
           // Crear una declaración para la consulta de tutoriales
           Statement statementTutorial = connection.createStatement();
           ResultSet resultSetTutorial = statementTutorial.executeQuery(sqlTutorial);
-            
             
             
            // Iterar sobre los resultados de tutoriales y almacenarlos en el array
@@ -89,6 +95,13 @@ public class GestionCategorias {
             
           return cat; 
      }
+    /**
+     * editarCategoria
+     * Metodo para editar la categoria
+     * @param id
+     * @param categoria
+     * @throws SQLException 
+     */
     public void editarCategoria(int id, String categoria) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -124,7 +137,12 @@ public class GestionCategorias {
         }
     }
 }
-    
+    /**
+     * eliminarCategoria
+     * Metodo para eliminar categoria
+     * @param id
+     * @throws SQLException 
+     */
     public void eliminarCategoria(int id) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;

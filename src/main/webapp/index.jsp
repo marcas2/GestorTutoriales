@@ -10,6 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file= "templates/header.jsp" %><!-- Header -->
 <%@include file= "templates/lateral.jsp" %>  <!-- Lateral y barra de navegacion -->
+
 <%
     String alert = request.getParameter("alert"); //Recibe alerta para sweet alert 
     if (alert != null) {//Prevenir errores

@@ -9,9 +9,16 @@ package Clases;
  * @author maria- sofia
  */
 public class Categoria {
+    /**
+     * Atributos
+     */
+    
     int id; 
     String categoria; 
-
+    
+    /**
+     * Constructores
+     */
     public Categoria() {
     }
 
@@ -19,7 +26,9 @@ public class Categoria {
         this.id = id;
         this.categoria = categoria;
     }
-
+    /**
+     * Getter and Setter 
+     */
     public int getId() {
         return id;
     }

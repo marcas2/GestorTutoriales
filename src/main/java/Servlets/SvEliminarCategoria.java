@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author maria
+ * SvEliminarCategoria
+ * @author Maráia
  */
 @WebServlet(name = "SvEliminarCategoria", urlPatterns = {"/SvEliminarCategoria"})
 public class SvEliminarCategoria extends HttpServlet {
@@ -37,13 +37,14 @@ public class SvEliminarCategoria extends HttpServlet {
     }
 
     /**
+     * Eliminar Categoria
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           int id= Integer.parseInt(request.getParameter("id"));
+        int id= Integer.parseInt(request.getParameter("id"));//Id categoria a eliminar
      try {
-         gestionar.eliminarCategoria(id);
+         gestionar.eliminarCategoria(id);//Se elimina la categoria
           response.sendRedirect("index.jsp?alert=eliminado"); // Redirigir a una página de éxito
      } catch (SQLException ex) {
          Logger.getLogger(SvEliminar.class.getName()).log(Level.SEVERE, null, ex);

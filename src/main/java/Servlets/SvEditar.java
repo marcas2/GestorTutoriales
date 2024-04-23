@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author maria
+ * SvEditar
+ * @author Maria- Sofia
  */
 @WebServlet(name = "SvEditar", urlPatterns = {"/SvEditar"})
 public class SvEditar extends HttpServlet {
@@ -34,7 +34,10 @@ public class SvEditar extends HttpServlet {
             throws ServletException, IOException {
 
     }
-
+    
+    /**
+     * Ver formulario editar con datos cargados
+     */
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +46,7 @@ public class SvEditar extends HttpServlet {
              Tutorial conn = gestionar.obtenerTutorial(Integer.parseInt(request.getParameter("id")));
 
             if(conn!=null){
-                
+                //Se escribe el formulario
                 String tutorialHTML = "<label for=\"validationCustom01\" class=\"form-label\">Nombre</label>\n"
                         + "<input name=\"id\" value=\"" + conn.getId() + "\" hidden required>\n"
                         + "<input type=\"text\" class=\"form-control\" id=\"validationCustom01\" name=\"nombre\" value=\"" + conn.getNombre() + "\" required>\n"
@@ -71,7 +74,7 @@ public class SvEditar extends HttpServlet {
                         + "<label for=\"validationCustom04\" class=\"form-label\">Categoría</label>\n"
                         + "<select class=\"form-select\" id=\"validationCustom04\" name=\"categoria\" required>\n"
                         + "    <option selected disabled value=\"\">Elige...</option>\n";
-
+                //Se llenan las categrias
                 ArrayList<Categoria> result2 = ges.getCategorias();
                 // Iterar sobre los resultados y mostrarlos en la tabla
                 for (Categoria cat2 : result2) {
@@ -112,10 +115,13 @@ public class SvEditar extends HttpServlet {
          }
     }
 
-
+    /**
+     * Editar datos y hacer solicitud a la base de datos 
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+          //Se cargan los datos
           int id=Integer.parseInt(request.getParameter("id")) ;
           String nombre= request.getParameter("nombre");
           int prioridad=Integer.parseInt(request.getParameter("prioridad")) ;
@@ -124,7 +130,7 @@ public class SvEditar extends HttpServlet {
           String url= request.getParameter("url");
           
          try {
-             gestionar.editar(id, nombre, categoria, url, prioridad, estado);
+             gestionar.editar(id, nombre, categoria, url, prioridad, estado);//Se editan
               response.sendRedirect("tutoriales.jsp?alert=editado"); // Redirigir a una página de éxito
          } catch (SQLException ex) {
              Logger.getLogger(SvEditar.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,9 +138,6 @@ public class SvEditar extends HttpServlet {
     }
 
     /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
      */
     @Override
     public String getServletInfo() {

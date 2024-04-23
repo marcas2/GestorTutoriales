@@ -10,13 +10,19 @@ package Clases;
  */
 public class Tutorial {
     
+    /**
+     * Atributos
+     */
     private int id;
     private String nombre;
     private int prioridad;
     private String estado;
     private String categoria;
     private String url;
-
+    
+    /**
+     * Constructor
+     */
     public Tutorial() {
     }
 
@@ -28,7 +34,9 @@ public class Tutorial {
         this.categoria = categoria;
         this.url = url;
     }
-    
+    /**
+     * Getter and Setter
+     */
     public int getId() {
         return id;
     }

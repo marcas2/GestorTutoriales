@@ -94,6 +94,13 @@ public class Gestiones {
 
         return array;
     }
+     /**
+      * obtenerTutorial
+      * Metodo para obtener un tutorial por ID
+      * @param id
+      * @return
+      * @throws SQLException 
+      */
      public Tutorial obtenerTutorial (int id) throws SQLException{
          Tutorial tut=new Tutorial();
           Connection connection = establecerConexion();
@@ -122,9 +129,19 @@ public class Gestiones {
             statementTutorial.close();
             connection.close();
             
-          return tut; 
+          return tut;//Se devuelve el tutorial
      }
-     
+  /**
+   * editar
+   * Metodo para editar un tutorial
+   * @param id
+   * @param nombre
+   * @param idCat
+   * @param url
+   * @param prioridad
+   * @param estado
+   * @throws SQLException 
+   */  
   public void editar(int id, String nombre, int idCat, String url, int prioridad, String estado) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -164,6 +181,12 @@ public class Gestiones {
         }
     }
 }
+  /**
+   * eliminar
+   * Metodo para eliminar por medio de id
+   * @param id
+   * @throws SQLException 
+   */
 public void eliminar(int id) throws SQLException {
     Connection connection = null;
     PreparedStatement preparedStatement = null;

@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * SvVerAgregarCategoria
  * @author maria
  */
 @WebServlet(name = "SvVerAgregarCategoria", urlPatterns = {"/SvVerAgregarCategoria"})
